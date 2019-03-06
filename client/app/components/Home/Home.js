@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'whatwg-fetch';
 import { setInStorage, getFromStorage, } from '../../utils/storage';
 
-class Home extends Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,7 +23,7 @@ class Home extends Component {
     this.onSignUp = this.onSignUp.bind(this);
     this.onSignIn = this.onSignIn.bind(this);
     this.logout = this.logout.bind(this);
-  }
+}
 
   onTextboxChangeSignInEmail(event) {
     this.setState({
@@ -183,7 +183,10 @@ class Home extends Component {
     }
   }
 
-  
+  renderRedirect(){
+      console.log("redirect attempt");
+      return <Redirect to='51.137.151.100:3000'/>
+  }
 
   render() {
     const {
@@ -253,8 +256,11 @@ class Home extends Component {
     }
     return (
       <div>
-        <p>Account</p>
-        <button onClick={this.logout}>Logout</button>
+        <p> Access Granted. </p>
+        <form action="http://51.137.151.100:3000">
+          <input type="submit" value="Yellowstone"/>
+          <button onClick={this.logout}>Logout</button>
+        </form>
       </div>
     );
   }
