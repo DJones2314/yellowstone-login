@@ -13,12 +13,16 @@ const webpackConfig = require('../webpack.config');
 const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 8080;
 
+var url = 'mongodb://yellowstone:EWssYRcsN8Nz6K9cMTNrBu0xMmLiq1MuZOvKfmf696ArodtGudbi3UFa6vSPVVgjDxAZCA1upmx6ndIQ9lP31A%3D%3D@yellowstone.documents.azure.com:10255/?ssl=true';
+const mongoDB = process.env.MONGODB_URI || url;
+
 
 // Configuration
 // ================================================================================================
 
 // Set up Mongoose
-mongoose.connect(isDev ? config.db_dev : config.db);
+//mongoose.connect(isDev ? config.db_dev : config.db);
+mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 
 const app = express();
