@@ -181,6 +181,9 @@ class Home extends React.Component {
       });
     }
   }
+  reloadHome(event) {
+    this.setState({ helpline: false});
+  }
 
   componentDidMount() {
     const obj = getFromStorage('project_Yellowstone');
@@ -230,7 +233,9 @@ class Home extends React.Component {
       return (<div><p>Loading...</p></div>);
     }
     if (helpline) {
-      return (<div><p>Please call 0300 1236600</p></div>)
+      return (<div><p>Please call 0300 1236600</p><p><button type="button" onClick={ this.reloadHome.bind(this) }>
+      <span>Go Back</span>
+    </button></p></div>)
     }
     if (!token) {
       return (
