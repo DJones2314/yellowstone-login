@@ -15,9 +15,12 @@ class Home extends React.Component {
       signInPassword: '',
       signUpEmail: '',
       signUpPassword: '',
+      UICError: '',
+      UIC: '',
     };
     this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
     this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
+    this.onTextboxChangeUIC = this.onTextboxChangeUIC.bind(this);
     this.onTextboxChangeSignUpEmail = this.onTextboxChangeSignUpEmail.bind(this);
     this.onTextboxChangeSignUpPassword = this.onTextboxChangeSignUpPassword.bind(this);
     this.onSignUp = this.onSignUp.bind(this);
@@ -49,15 +52,23 @@ class Home extends React.Component {
     });
   }
 
+  onTextboxChangeUIC(event) {
+    this.setState({
+      UIC: event.target.value,
+    });
+  }
+
   onSignUp() {
     // Grab state
     const {
+      UIC,
       signUpEmail,
       signUpPassword,
     } = this.state;
-    this.setState({
-      isLoading: true,
-    });
+    if(UIC == '09061996'){
+      this.setState({
+        isLoading: true,
+      });
     // Post request to backend
     fetch('/api/account/signup', {
       method: 'POST',
@@ -65,6 +76,7 @@ class Home extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        UniqueCode: UIC,
         email: signUpEmail,
         password: signUpPassword,
       }),
@@ -77,6 +89,7 @@ class Home extends React.Component {
             isLoading: false,
             signUpEmail: '',
             signUpPassword: '',
+            UIC: '',
           });
         } else {
           this.setState({
@@ -85,6 +98,9 @@ class Home extends React.Component {
           });
         }
       });
+    } else{
+      alert("Incorrect Unique Identifier Code");
+    }
   }
 
   onSignIn() {
@@ -96,6 +112,7 @@ class Home extends React.Component {
     this.setState({
       isLoading: true,
     });
+    
     // Post request to backend
     fetch('/api/account/signin', {
       method: 'POST',
@@ -198,6 +215,7 @@ class Home extends React.Component {
       signUpEmail,
       signUpPassword,
       signUpError,
+      UIC,
     } = this.state;
     if (isLoading) {
       return (<div><p>Loading...</p></div>);
@@ -237,6 +255,12 @@ class Home extends React.Component {
               ) : (null)
             }
             <p>Sign Up</p>
+            <input
+              type="password"
+              placeholder="UIC"
+              value={UIC}
+              onChange={this.onTextboxChangeUIC}
+            /><br />
             <input
               type="email"
               placeholder="Email"
