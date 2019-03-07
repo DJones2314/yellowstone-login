@@ -17,6 +17,7 @@ class Home extends React.Component {
       signUpPassword: '',
       UICError: '',
       UIC: '',
+      helpline: false
     };
     this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
     this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
@@ -26,6 +27,11 @@ class Home extends React.Component {
     this.onSignUp = this.onSignUp.bind(this);
     this.onSignIn = this.onSignIn.bind(this);
     this.logout = this.logout.bind(this);
+    this.forgot = () => {
+      this.setState({
+        helpline: true,
+      });
+    }
 }
 
   onTextboxChangeSignInEmail(event) {
@@ -144,6 +150,8 @@ class Home extends React.Component {
       });
   }
 
+  
+
   logout() {
     this.setState({
       isLoading: true,
@@ -207,6 +215,7 @@ class Home extends React.Component {
 
   render() {
     const {
+      helpline,
       isLoading,
       token,
       signInError,
@@ -219,6 +228,9 @@ class Home extends React.Component {
     } = this.state;
     if (isLoading) {
       return (<div><p>Loading...</p></div>);
+    }
+    if (helpline) {
+      return (<div><p>Please call 0300 1236600</p></div>)
     }
     if (!token) {
       return (
@@ -245,6 +257,7 @@ class Home extends React.Component {
             />
             <br />
             <button onClick={this.onSignIn}>Sign In</button>
+            <button onClick={this.forgot}>Forgotten Password</button>
           </div>
           <br />
           <br />
@@ -254,6 +267,9 @@ class Home extends React.Component {
                 <p>{signUpError}</p>
               ) : (null)
             }
+
+            <p>{helpline}</p>
+
             <p>Sign Up</p>
             <input
               type="password"
