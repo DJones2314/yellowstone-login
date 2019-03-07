@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
+import {Button} from 'reactstrap';
 import { setInStorage, getFromStorage, } from '../../utils/storage';
 
 class Home extends React.Component {
@@ -233,13 +234,13 @@ class Home extends React.Component {
       return (<div><p>Loading...</p></div>);
     }
     if (helpline) {
-      return (<div><p>Please call 0300 1236600</p><p><button type="button" onClick={ this.reloadHome.bind(this) }>
+      return (<div><p>Please call 0300 1236600</p><p><Button type="button" onClick={ this.reloadHome.bind(this) }>
       <span>Go Back</span>
-    </button></p></div>)
+    </Button></p></div>)
     }
     if (!token) {
       return (
-        <div>
+        <div className="whole">
           <div>
             {
               (signInError) ? (
@@ -261,8 +262,8 @@ class Home extends React.Component {
               onChange={this.onTextboxChangeSignInPassword}
             />
             <br />
-            <button onClick={this.onSignIn}>Sign In</button>
-            <button onClick={this.forgot}>Forgotten Password</button>
+            <Button onClick={this.onSignIn}>Sign In</Button>
+            <Button onClick={this.forgot}>Forgotten Password</Button>
           </div>
           <br />
           <br />
@@ -294,18 +295,20 @@ class Home extends React.Component {
               value={signUpPassword}
               onChange={this.onTextboxChangeSignUpPassword}
             /><br />
-            <button onClick={this.onSignUp}>Sign Up</button>
+            <Button onClick={this.onSignUp}>Sign Up</Button>
           </div>
        </div>
       );
     }
     return (
       <div>
-        <p> Access Granted. </p>
+        <h3> Access Granted. </h3>
         <form action="http://51.137.151.100:3000">
-          <input type="submit" value="Yellowstone"/>
-          <button onClick={this.logout}>Logout</button>
+          <Button type="submit">Yellowstone</Button>
+          <Button>Yosemite</Button>
+          <Button>Sequoia</Button>
         </form>
+        <Button onClick={this.logout}>Logout</Button>
       </div>
     );
   }
